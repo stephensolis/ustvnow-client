@@ -219,9 +219,14 @@ if __name__ == '__main__':
         qualities.sort(key=lambda quality: quality.bandwidth, reverse=True)
         print('[i] Select desired quality:')
         for i, quality in enumerate(qualities):
-            print(indent('{}) {}: {}x{}, {}bps, codecs: {}'
+            if quality.resolution is None:
+                resolution_str = '(unknown resolution)'
+            else:
+                resolution_str = '{}x{}'.format(quality.resolution[0],
+                                                quality.resolution[1])
+            print(indent('{}) {}: {}, {}bps, codecs: {}'
                          .format(i + 1, quality.bandwidth,
-                                 quality.resolution[0], quality.resolution[1],
+                                 resolution_str,
                                  format_si(quality.bandwidth),
                                  describe_codecs(quality.codecs)), 6))
         print('    ', end='')
