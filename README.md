@@ -11,6 +11,12 @@ Just run `pip install -r requirements.txt` to setup, then `python ustvnow.py`, o
 - A [USTVnow](https://www.ustvnow.com/) account ([sign up here](https://watch.ustvnow.com/subscription/free-channels))
 - Something capable of playing [HLS/M3U](https://en.wikipedia.org/wiki/HTTP_Live_Streaming) streams (like [VLC](https://www.videolan.org/vlc/) or [PotPlayer](http://potplayer.daum.net/))
 
+Note: USTVnow blocks the default VLC user-agent string. Try using `--download-only` and running VLC with this argument:
+
+```
+:http-user-agent="AppleCoreMedia/1.0.0.8C148 (iPad; U; CPU OS 4_2_1 like Mac OS X; en_us)"
+```
+
 ## Usage
 
 	usage: ustvnow.py [-h] [-u USERNAME] [-p PASSWORD] [-c CHANNEL] [-q QUALITY]
