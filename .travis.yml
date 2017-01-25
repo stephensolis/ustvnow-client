@@ -7,17 +7,10 @@ python:
   - "3.4"
   - "3.5"
 
-env:
-  global:
-    # USTVNOW_USERNAME
-    - secure: "Gup24lWHnb1BnYrC3uOowIcu1kALTF9T5wfRUEqVvuOOuZy6w/UHQL5kR26pvbgj4d2xo6shVV1z4MFaf8UyLt+z8pXmou18isHCVNqrz7m2fHjsv1HL6QMnWsZXefbbTMoyl5GdcR+4/6ueUGgbWWLK8VGT4s1rb7cG4pQqfD6soAll2adcuxdZdPQeE/gAiB3NtSLFGivDXg69CYP2SkQ8HKPOY1mnMMZQF2v6hLdAcUDxKJMGoPjB9O5ZbU53GGotBAgJg/Dg7IqzUtjESkc+LOzPV9mI8gy1Ccmtl2ldLUQJCvYvujYAkCvKEtk2InMop7A05VH2ahtvwTj6mNV8IJidFMisRcoQf3wQOHnIllXOko0FQkV5i8U3IIL+RtFg8hVx1fM4xi36k6ardLGHhEqA6DsXsmcSr29++m1HPmz8QynIjiJPV7j+K/WaVh9Zha075vuk2NCsTaO6hMiOSMvqq6SdD49NPVMRtjP6B3J0wHPyNT+y/B9g/5h5obzmcyb/xD1SPhp4x/6C+TfcJAn3PwhO/E/nSsjje66ksZSwKuapSDlEHhGj0daP6zdDrOKuS8Nfn73Z4rNLSP5Aq8CNK5oqmnlL3gefDzP17G4dNa7H7C97mekX06Hvq04wGfbIYQAxUqdBOuEUztY5IJUUqQ8lE4OylBVQ/L8="
-    # USTVNOW_PASSWORD
-    - secure: "iZy3shmf7DhvYTGqFB0lwcMalSbvWRkPr647yJL2hZVlrRkvc7LA9uH9H9+Z0jIV2jEwGcjQrQLSTbMCVxFl6YlX94H4YjsXuo6K7H/9AHOvLdhlDF+T1IjjM+IZzUC+vHhKIvL3VHVBK2r7EppUFVxrYR/r2WG4oVuNRJgCytvkr2sCl296ObmG7kshTq7clvLGDvar6wbipX03qCwAkSLbrGdkDJraMFWOqkoRLM7Ednn979RESHkd20Sn7muafpzPbl3tw2iL1PXOTTJ3LWCcsG1PH+BYuUogZckdzPPNZr4oS1PU0vpgbnl0NkQJwAhk0yeMvOkWzdAGNZXEYGL5V7gpSpHG0hXcJrIDb5MHOridmltBA4FSF78cDzhxytm/d/iquhqLlYlUIe99sjTw9IhpFaPULLhbUFVjuC31e+JYA74LxsYTuKYvJlTpaJlRrT2qYxt52fJeNBYMSRnWCCUxkis8Nt3s9eA2hjJoGo7dA1wC1GYvnb/DW62/GsbadULbx8C1I2CVtz9r8bHOjUFAl2eZha5/GCcpYCC+XjWP0JucnMZde878SFZ2eXDMke8qM6BDxba3RDpA3zwPuEiKj1drr/LGVtMxr+JqrUydGw2cFPO6/y4oFlyA52JnZ3kAFjQLQB9ZK3AdeOpIm9iesppiZya4z+V7ZTo="
-
 install:
   - pip install -r requirements.txt
   - pip install pycodestyle
 
 script:
-  - python ustvnow.py -u $USTVNOW_USERNAME -p $USTVNOW_PASSWORD -c wgal -q 2383872 -d
+  - python ustvnow.py -u $USTVNOW_USERNAME -p $USTVNOW_PASSWORD -c wgal -q $USTVNOW_QUALITY -d
   - python -m pycodestyle ustvnow.py
