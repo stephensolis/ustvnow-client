@@ -12,5 +12,5 @@ install:
   - pip install pycodestyle
 
 script:
-  - python ustvnow.py -u $USTVNOW_USERNAME -p $USTVNOW_PASSWORD -c wgal -q $USTVNOW_QUALITY -d
+  - python ustvnow.py -u $USTVNOW_USERNAME -p $USTVNOW_PASSWORD -c wgal -q highest -d
   - python -m pycodestyle ustvnow.py

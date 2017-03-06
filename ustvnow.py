@@ -144,6 +144,16 @@ if __name__ == '__main__':
                 descriptions.append('Unknown Codec ({})'.format(c))
         return ', '.join(descriptions)
 
+    def describe_quality_info(quality):
+        if quality.resolution is None:
+            resolution_str = '(unknown resolution)'
+        else:
+            resolution_str = '{}x{}'.format(quality.resolution[0],
+                                            quality.resolution[1])
+        return '{}, {}bps, codecs: {}'.format(resolution_str,
+                                              format_si(quality.bandwidth),
+                                              describe_codecs(quality.codecs))
+
     def prompt_number(min, max):
         while True:
             num = input('({}-{}): '.format(min, max))
@@ -208,30 +218,37 @@ if __name__ == '__main__':
         channel_num = prompt_number(1, len(available_channels))
         return available_channels[channel_num - 1]['code']
 
-    def prompt_channel_bitrate(qualities, bitrate):
+    def prompt_channel_quality(qualities, bitrate):
+        qualities.sort(key=lambda quality: quality.bandwidth, reverse=True)
+
+        if bitrate.lower() == 'highest':
+            print('[i] The highest-bitrate stream was: {}.'
+                  .format(describe_quality_info(qualities[0])))
+            return qualities[0]
         if bitrate is not None:
-            if any(quality.bandwidth == bitrate for quality in qualities):
-                return bitrate
+            try:
+                bitrate = int(bitrate)
+                selected_quality = next((quality for quality in qualities
+                                         if quality.bandwidth == bitrate),
+                                        None)
+            except ValueError:
+                selected_quality = None
+
+            if selected_quality is not None:
+                return selected_quality
             else:
                 print('[!] Channel bitrate {} does not exist.'
                       .format(bitrate))
 
-        qualities.sort(key=lambda quality: quality.bandwidth, reverse=True)
         print('[i] Select desired quality:')
         for i, quality in enumerate(qualities):
-            if quality.resolution is None:
-                resolution_str = '(unknown resolution)'
-            else:
-                resolution_str = '{}x{}'.format(quality.resolution[0],
-                                                quality.resolution[1])
-            print(indent('{}) {}: {}, {}bps, codecs: {}'
+            print(indent('{}) {}: {}'
                          .format(i + 1, quality.bandwidth,
-                                 resolution_str,
-                                 format_si(quality.bandwidth),
-                                 describe_codecs(quality.codecs)), 6))
+                                 describe_quality_info(quality)), 6))
         print('    ', end='')
+
         quality_num = prompt_number(1, len(qualities))
-        return qualities[quality_num - 1].bandwidth
+        return qualities[quality_num - 1]
 
     def prompt_filename_if_needed(filename):
         if os.path.isfile(filename):
@@ -304,9 +321,11 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--channel',
                         help='channel code '
                              '(run without this argument to see a list)')
-    parser.add_argument('-q', '--quality', type=int,
-                        help='channel bitrate '
-                             '(run without this argument to see a list)')
+    parser.add_argument('-q', '--quality',
+                        help='channel bitrate in bps '
+                             '(run without this argument to see a list, '
+                             'or use \'highest\' to use the highest-bitrate '
+                             'stream available)')
     parser.add_argument('-d', '--download-only', action='store_true',
                         help='just download the m3u8 file for the channel '
                              'without playing')
@@ -368,18 +387,17 @@ if __name__ == '__main__':
     # select playlists, create m3u8 file
     #
 
-    selected_bitrate = prompt_channel_bitrate(list(playlists_by_quality
+    selected_quality = prompt_channel_quality(list(playlists_by_quality
                                                    .keys()), args.quality)
-    selected_playlists = next(playlists_by_quality[quality]
-                              for quality in playlists_by_quality
-                              if quality.bandwidth == selected_bitrate)
+    selected_playlists = playlists_by_quality[selected_quality]
 
     output_data = make_playlist(selected_playlists)
     if args.verbose:
         print('[*] Created output m3u8 data:')
         print(indent(output_data, 6))
 
-    default_filename = '{}_{}.m3u8'.format(channel_code, selected_bitrate)
+    default_filename = '{}_{}.m3u8'.format(channel_code,
+                                           selected_quality.bandwidth)
     output_filename = prompt_filename_if_needed(args.output_filename or
                                                 default_filename)
     with open(output_filename, 'wb') as f:

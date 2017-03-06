@@ -4,7 +4,7 @@
 
 A simple, unofficial, command-line client for [USTVnow](https://www.ustvnow.com/).
 
-Just run `pip install -r requirements.txt` to setup, then `python ustvnow.py`, or try (for example) `python ustvnow.py -u <email> -p <password> -c wgal -q 2383872`.
+Just run `pip install -r requirements.txt` to setup, then `python ustvnow.py`, or try (for example) `python ustvnow.py -u <email> -p <password> -c wgal -q highest`.
 
 ## Requirements
 
@@ -33,8 +33,9 @@ Note: USTVnow blocks the default VLC user-agent string. Try using `--download-on
 	  -c CHANNEL, --channel CHANNEL
 	                        channel code (run without this argument to see a list)
 	  -q QUALITY, --quality QUALITY
-	                        channel bitrate (run without this argument to see a
-	                        list)
+	                        channel bitrate in bps (run without this argument to
+	                        see a list, or use 'highest' to use the highest-
+	                        bitrate stream available)
 	  -d, --download-only   just download the m3u8 file for the channel without
 	                        playing
 	  -o OUTPUT_FILENAME, --output-filename OUTPUT_FILENAME
