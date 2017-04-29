@@ -221,24 +221,25 @@ if __name__ == '__main__':
     def prompt_channel_quality(qualities, bitrate):
         qualities.sort(key=lambda quality: quality.bandwidth, reverse=True)
 
-        if bitrate.lower() == 'highest':
-            print('[i] The highest-bitrate stream was: {}.'
-                  .format(describe_quality_info(qualities[0])))
-            return qualities[0]
         if bitrate is not None:
-            try:
-                bitrate = int(bitrate)
-                selected_quality = next((quality for quality in qualities
-                                         if quality.bandwidth == bitrate),
-                                        None)
-            except ValueError:
-                selected_quality = None
-
-            if selected_quality is not None:
-                return selected_quality
+            if bitrate.lower() == 'highest':
+                print('[i] The highest-bitrate stream was: {}.'
+                      .format(describe_quality_info(qualities[0])))
+                return qualities[0]
             else:
-                print('[!] Channel bitrate {} does not exist.'
-                      .format(bitrate))
+                try:
+                    bitrate = int(bitrate)
+                    selected_quality = next((quality for quality in qualities
+                                             if quality.bandwidth == bitrate),
+                                            None)
+                except ValueError:
+                    selected_quality = None
+
+                if selected_quality is not None:
+                    return selected_quality
+                else:
+                    print('[!] Channel bitrate {} does not exist.'
+                          .format(bitrate))
 
         print('[i] Select desired quality:')
         for i, quality in enumerate(qualities):
