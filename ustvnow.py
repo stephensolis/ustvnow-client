@@ -122,7 +122,10 @@ if __name__ == '__main__':
     import subprocess
     import sys
 
-    from codec_names import codec_names
+    try:
+        from codec_names import codec_names
+    except ImportError:
+        codec_names = {}
 
     def indent(str, columns):
         return '\n'.join(' '*columns + line for line in str.splitlines())
