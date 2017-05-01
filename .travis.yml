@@ -6,11 +6,12 @@ python:
   - "2.7"
   - "3.4"
   - "3.5"
+  - "3.6"
 
 install:
   - pip install -r requirements.txt
-  - pip install pycodestyle
+  - pip install flake8
 
 script:
   - python ustvnow.py -u $USTVNOW_USERNAME -p $USTVNOW_PASSWORD -c wgal -q highest -d
-  - python -m pycodestyle ustvnow.py
+  - python -m flake8 ustvnow.py

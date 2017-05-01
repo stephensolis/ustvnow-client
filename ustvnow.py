@@ -197,9 +197,9 @@ if __name__ == '__main__':
     def prompt_channel_code(channel_list, channel_code):
         if channel_code is not None:
             try:
-                channel = next(channel for channel in channel_list
-                               if channel['code'] == channel_code)
-                if channel['available']:
+                coded_channel = next(channel for channel in channel_list
+                                     if channel['code'] == channel_code)
+                if coded_channel['available']:
                     return channel_code
                 else:
                     print("[!] Channel '{}' exists but is marked as "
@@ -261,7 +261,8 @@ if __name__ == '__main__':
             if not prompt_yes_no():
                 filename = ''
                 while not filename:
-                    filename = input('[i] Enter new filename: ').strip()
+                    prompt_filename = input('[i] Enter new filename: ').strip()
+                    filename = prompt_filename + '.m3u8'
         return filename
 
     def format_request(req):
