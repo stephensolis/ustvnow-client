@@ -127,8 +127,8 @@ if __name__ == '__main__':
     except ImportError:
         codec_names = {}
 
-    def indent(str, columns):
-        return '\n'.join(' '*columns + line for line in str.splitlines())
+    def indent(text, columns):
+        return '\n'.join(' '*columns + line for line in text.splitlines())
 
     def format_si(num):
         for unit in ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z']:
@@ -157,12 +157,12 @@ if __name__ == '__main__':
                                               format_si(quality.bandwidth),
                                               describe_codecs(quality.codecs))
 
-    def prompt_number(min, max):
+    def prompt_number(low, high):
         while True:
-            num = input('({}-{}): '.format(min, max))
+            num = input('({}-{}): '.format(low, high))
             try:
                 num = int(num)
-                if num >= min and num <= max:
+                if num >= low and num <= high:
                     return num
                 else:
                     raise ValueError()

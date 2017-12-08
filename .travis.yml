@@ -13,5 +13,5 @@ install:
   - pip install flake8
 
 script:
-  - python ustvnow.py -u $USTVNOW_USERNAME -p $USTVNOW_PASSWORD -c wgal -q highest -d
+  - python ustvnow.py -u $USTVNOW_USERNAME -p $USTVNOW_PASSWORD -c $USTVNOW_CHANNEL -q highest -d
   - python -m flake8 ustvnow.py
