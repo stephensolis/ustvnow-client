@@ -1,9 +1,14 @@
 # ustvnow-client
 
-[![Build Status](https://travis-ci.org/stephensolis/ustvnow-client.svg?branch=master)](https://travis-ci.org/stephensolis/ustvnow-client)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2c282b2727354d809f47f2d3b085387f)](https://www.codacy.com/app/stephensolis/ustvnow-client)
-[![codebeat badge](https://codebeat.co/badges/636662a6-916d-4d8f-a7da-3298a58ca426)](https://codebeat.co/projects/github-com-stephensolis-ustvnow-client-master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/937226aa5b7a8dab2717/maintainability)](https://codeclimate.com/github/stephensolis/ustvnow-client/maintainability)
+**This client no longer works because of changes to ustvnow.com**
+
+The project is currently unmaintained but please feel free to fork!
+
+![Unmaintained](https://img.shields.io/badge/project-unmaintained-red.svg)
+[![Travis](https://travis-ci.org/stephensolis/ustvnow-client.svg?branch=master)](https://travis-ci.org/stephensolis/ustvnow-client)
+[![Codacy](https://api.codacy.com/project/badge/Grade/2c282b2727354d809f47f2d3b085387f)](https://www.codacy.com/app/stephensolis/ustvnow-client)
+[![Codebeat](https://codebeat.co/badges/636662a6-916d-4d8f-a7da-3298a58ca426)](https://codebeat.co/projects/github-com-stephensolis-ustvnow-client-master)
+[![CodeClimate](https://api.codeclimate.com/v1/badges/937226aa5b7a8dab2717/maintainability)](https://codeclimate.com/github/stephensolis/ustvnow-client/maintainability)
 
 A simple, unofficial, command-line client for [USTVnow](https://www.ustvnow.com/).
 
